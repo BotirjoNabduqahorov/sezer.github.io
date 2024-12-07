@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sezar Shifrlash Algoritmi</title>
+    <style>
+        /* Sahifaning asosiy uslubi */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #89f7fe, #66a6ff);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 20px 40px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            font-size: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            background: #66a6ff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #89f7fe;
+        }
+
+        #outputText {
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sezar Shifrlash Algoritmi</h1>
+        <p>Matnni shifrlang yoki deshifrlang va o‘z shifr kalitingizni saqlang!</p>
+
+        <textarea id="inputText" placeholder="Matnni bu yerga kiriting..."></textarea>
+        <input type="number" id="shiftValue" placeholder="Kalit (raqam)" min="1" max="25">
+
+        <div class="buttons">
+            <button onclick="encrypt()">Shifrlash</button>
+            <button onclick="decrypt()">Deshifrlash</button>
+        </div>
+
+        <textarea id="outputText" placeholder="Natija bu yerda ko'rinadi..." readonly></textarea>
+    </div>
+
+    <footer>
+        YARATUVCHI: <strong>ABDUQAHOROV BOTIRJON</strong>
+    </footer>
+
+    <script>
+        // Sezar shifrlash funksiyasi
+        function encrypt() {
+            const text = document.getElementById("inputText").value;
+            const shift = parseInt(document.getElementById("shiftValue").value);
+            document.getElementById("outputText").value = caesarCipher(text, shift);
+        }
+
+        // Sezar deshifrlash funksiyasi
+        function decrypt() {
+            const text = document.getElementById("inputText").value;
+            const shift = parseInt(document.getElementById("shiftValue").value);
+            document.getElementById("outputText").value = caesarCipher(text, -shift);
+        }
+
+        // Sezar algoritmi
+        function caesarCipher(str, shift) {
+            return str.split('').map(char => {
+                if (char.match(/[a-z]/i)) {
+                    const code = char.charCodeAt(0);
+                    const base = code >= 65 && code <= 90 ? 65 : 97;
+                    return String.fromCharCode(((code - base + shift + 26) % 26) + base);
+                }
+                return char;
+            }).join('');
+        }
+    </script>
+</body>
+
+</html>
